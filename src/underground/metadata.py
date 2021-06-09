@@ -43,6 +43,13 @@ FEED_GROUPS = {
     ),
     "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-si": ("SI",),
 }
+ALERTS_FEEDS = [
+    "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/camsys%2Fall-alerts",
+    "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/camsys%2Fsubway-alerts",
+    "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/camsys%2Fbus-alerts",
+    "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/camsys%2Flirr-alerts",
+    "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/camsys%2Fmnr-alerts"
+]
 
 # get a route to feed mapping
 ROUTE_FEED_MAP = {route: url for url, routes in FEED_GROUPS.items() for route in routes}
@@ -56,7 +63,7 @@ for k in ROUTE_FEED_MAP:
     ROUTE_REMAP[k] = k
 
 VALID_ROUTES = set(ROUTE_FEED_MAP.keys())
-VALID_FEED_URLS = set(ROUTE_FEED_MAP.values())
+VALID_FEED_URLS = set.union(set(ROUTE_FEED_MAP.values()), ALERTS_FEEDS)
 
 
 def resolve_url(route_or_url: str) -> str:
